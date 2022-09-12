@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Turn a readable stream into multiple readable streamx streams",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "streamx": "^2.12.5"
+  },
   "devDependencies": {
     "standard": "^14.3.4",
     "tape": "^5.0.1"
