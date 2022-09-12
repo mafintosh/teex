@@ -4,6 +4,8 @@ module.exports = function (s, forks = 2) {
   const streams = new Array(forks)
   const status = new Array(forks).fill(true)
 
+  let ended = false
+
   for (let i = 0; i < forks; i++) {
     streams[i] = new Readable({
       read (cb) {
@@ -16,6 +18,7 @@ module.exports = function (s, forks = 2) {
   }
 
   s.on('end', function () {
+    ended = true
     for (const stream of streams) stream.push(null)
   })
 
@@ -24,6 +27,7 @@ module.exports = function (s, forks = 2) {
   })
 
   s.on('close', function () {
+    if (ended) return
     for (const stream of streams) stream.destroy()
   })
 
